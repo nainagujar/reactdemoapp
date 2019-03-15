@@ -5,7 +5,8 @@ import { connect } from 'react-redux' ;
 import {signUp} from '../actions' ;
 import {toastr} from 'react-redux-toastr';
 import history from '../history';
-import _ from 'lodash'
+import _ from 'lodash';
+
 class SignUp extends React.Component {
  
   onSubmit = (formValue) => {
@@ -41,17 +42,19 @@ class SignUp extends React.Component {
 
   
    render() {
+    if(!localStorage.getItem("authToken"))
+    {
      return (
         <form onSubmit={this.props.handleSubmit(this.onSubmit.bind(this))} className="ui form">
           <h3>SignUp!!</h3>
           <div>
-          <label>userName</label>
+          <label>username</label>
              <div>
              <Field
                name="username"
                component={this.renderField}
                type="text"
-               placeholder="enter User Name"
+               placeholder="Enter username"
               />
              </div>
           <label>email</label>
@@ -60,7 +63,7 @@ class SignUp extends React.Component {
               name="email"
               component={this.renderField}
               type="email"
-              placeholder="enter email"
+              placeholder="Enter email"
               />
              </div>
           <label>password</label>
@@ -69,16 +72,16 @@ class SignUp extends React.Component {
               name="password"
               component={this.renderField}
               type="password"
-              placeholder="enter password"
+              placeholder="Enter password"
               />
              </div>
-             <label>first_Name</label>
+             <label>firstName</label>
             <div>
              <Field
                name="first_name"
                component={this.renderField}
                type="text"
-               placeholder="enter first name"
+               placeholder="Enter firstname"
               />
             </div>
           <label>lastName</label>
@@ -87,53 +90,66 @@ class SignUp extends React.Component {
                name="last_name"
                component={this.renderField}
                type="text"
-               placeholder="enter last name"
+               placeholder="Enter lastname"
               />
              </div>
           <div>
            <button className="ui primary button">SignUp</button>
            <Link to="/login" className="item">
-            back to login
+            back to Login
            </Link>
           </div>
       </div>
       </form>
      );
+  }
+  else {
+    return (
+      <div> 
+      {alert('Invalid action performed')}
+       {history.push('/post')}
+      </div>
+      );
+     }
     }
   }
 
 const validate = (formValue) => {
   
   let errors= {} ;
-  if(!formValue.userName){
-    errors.userName = "username is required"
+  if(!formValue.username){
+    errors.username = "Username is required"
    }
-   else if(formValue.userName.length<4){
-    errors.userName= "length should atleast 4"
+   else if(formValue.username.length<4){
+    errors.username= "Length should be atleast 4 character"
    }
    if(!formValue.email){
-    errors.email = "email is required"
+    errors.email = "Email is required"
    }
-  //  else if(formValue.email !==/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[a-z]/) {
-  //   errors.email = 'Invalid email address'
-  //   }
+   else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formValue.email)) {
+    errors.email = 'Enter Valid Email'
+  }
+   
    if(!formValue.password){
-    errors.password = "password is required"
+    errors.password = "Password is required"
    } 
    else if (formValue.password.length<4) {
-     errors.password="enter atleast 4 character"
+     errors.password="Length should be atleast 4 character"
    }
+   else if (!/[^a-zA-Z0-9 ]/i.test(formValue.password)) {
+    errors.password = 'Only Alfanumeric value will be accepted'
+  }
   if(!formValue.first_name){
-    errors.first_name = "firstname is required"
+    errors.first_name = "Firstname is required"
   }
   else if(formValue.first_name.length<3){
-    errors.first_name= "length should atleast 3"
+    errors.first_name= "Length should be atleast 3 character"
   }
   if(!formValue.last_name){
-   errors.last_name = "last name is required"
+   errors.last_name = "Lastname is required"
   }
   else if(formValue.last_name.length<3){
-   errors.last_name= "length should atleast 3"
+   errors.last_name= "Length should be atleast 3 character"
   }    
    return errors ;
  }

@@ -10,6 +10,7 @@
     "node-media-server": "^1.4.12",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-modal": "^3.8.1",
     "react-redux": "^6.0.1",
     "react-redux-toastr": "^7.4.8",
     "react-router-dom": "^4.3.1",

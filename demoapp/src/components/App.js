@@ -3,7 +3,6 @@ import { Route , Router } from 'react-router-dom' ;
 import SignUp from './SignUp';
 import LogIn from './LogIn' ;
 import CreatePost from './CreatePost';
-import DeletePost from './DeletePost';
 import EditPost from './EditPost';
 import PostList from './PostList';
 import UpdateProfile from './UpdateProfile';
@@ -26,7 +25,6 @@ const App = () => {
              <Route path="/post" exact component={PostList} />
              <Route path="/new" exact component={CreatePost} />
              <Route path="/edit/:id" exact  component={EditPost} />
-             <Route path="/delete/:id" exact component={DeletePost} />
              <Route path="/view" exact component={ViewPost} />
             </div>
           </Router>

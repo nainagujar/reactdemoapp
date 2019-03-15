@@ -1,56 +1,60 @@
-import api from '../apis' ;
+import api from '../apis';
 import history from '../history' ;
 
-// export const signUp = (formValues ,callback) => {
-// console.log(formValues);
-//      const response = api.post('/wp/v2/users/register', formValues );
-//     response.then((res)=>{
-//         console.log(res,'action then');
-//         callback(res);
-//     })
-//     response.catch((error)=>{
-//         console.log(error.response);
-//     })         
-// };
-export const signUp =(formValues , callback) => { 
+export const signUp = (formValues, callback) => {
     const headers = {
-    'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
     }
-    
-      const response = api.post('/wp/v2/users/register',formValues,{headers:headers});
-      console.log(formValues);
-    
-    response.then((res)=>{
-      console.log(res,'action then');
-      callback(res);
-    }) 
-      response.catch((error)=>{
-      console.log(error.response,'action error');
+
+    const response = api.post('/wp/v2/users/register', formValues, { headers: headers })
+
+    response.then((res) => {
+
+        callback(res);
     })
-    return{
+    response.catch((error) => {
+
+    })
+    return {
         type: 'signUp',
         payload: response
     };
-    
-    } 
+
+}
 
 
 
-export const logIn = (formValue ,callback) => {
-   
-     const response = api.post('/jwt-auth/v1/token', formValue);
-    response.then((res)=>{
-         callback(res);
+export const logIn = (formValue, callback) => {
+    const response = api.post('/jwt-auth/v1/token', formValue);
+    response.then((res) => {
+        callback(res);
 
     })
-    response.catch((error)=>{
-        callback(error.response); 
+    response.catch((error) => {
+        callback(error.response);
     })
-     return{
+    return {
         type: 'logIn',
         payload: response
-       
-    }; 
+
+    };
+}
+
+export const fetchPost = (id) => (dispatch) => {
+    var headers = {
+        'Content-Type': 'application/json',
+    }
+    const response = api.get(`/wp/v2/posts/${id}`, { headers: headers });
+    response.then((res) => {
+        dispatch({
+            type: 'EDIT_POST',
+            payload: res.data
+        });
+    });
+    response.catch((error) => {
+
+    });
+
 }
 
 
@@ -58,80 +62,74 @@ export const postList = (callback) => (dispatch) => {
     var headers = {
         'Content-Type': 'application/json',
     }
-    const response = api.get('/wp/v2/posts',{ headers: headers } );
+    const response = api.get('/wp/v2/posts', { headers: headers });
     response.then((res) => {
-        callback(res.data);
+        callback(res)
         dispatch({
             type: 'FETCH_POST',
             payload: res.data
         });
     });
     response.catch((error) => {
-        callback(error.response);
-        console.log(error.response,'error');
+
     });
 
 }
 
-export const createPost = (formValues)  => {
+export const createPost = (formValues, callback) => {
     var headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("authToken")}`
     }
-    console.log(localStorage.getItem("authToken"),'fdhfgdhgghfdgfdgfdgfdgfdhfg');
-   const response = api.post('/wp/v2/posts',formValues,{ headers: headers });
- 
+    const response = api.post('/wp/v2/posts', formValues, { headers: headers });
+
     response.then((res) => {
-        console.log(res, 'jklsdfhsdjfhsdjfh');
+        callback(res);
     });
     response.catch((error) => {
-        console.log(error.response,'error');
+        callback(error.response)
     });
-    return{
+    return {
         type: 'createPost',
         payload: response
     };
 }
 
 
-export const editPost = (userid, formValues) => ()=> {
+export const editPost = (postid, formValues) => () => {
     var headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("authToken")}`
     }
-    console.log(localStorage.getItem("authToken"),'fdhfgdhgghfdgfdgfdgfdgfdhfg');
-    const response = api.put(`/wp/v2/users`, userid ,formValues,{ headers: headers });
+    
+    const response = api.put(`/wp/v2/posts/${postid}`,formValues, { headers: headers });
     response.then((res) => {
-        console.log(res, 'jklsdfhsdjfhsdjfh');
+       
+        history.push('/post');
     });
     response.catch((error) => {
-        console.log(error.response,'error');
+       
     });
-    return{
-        type: 'editPost',
-        payload: response
-    };
 }
 
-export const deletePost = (userid) => () => {
-  var headers = {
+
+export const deletePost = (id,callback) => (dispatch) => {
+    var headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("authToken")}`
     }
-    console.log(localStorage.getItem("authToken"),'fdhfgdhgghfdgfdgfdgfdgfdhfg');
-    const response = api.delete(`/wp/v2/posts/${userid}`,{ headers: headers });
+
+    const response = api.delete(`/wp/v2/posts/${id}`, { headers: headers });
     response.then((res) => {
 
-        history.push('/post');
-        
+        callback(res);
+
     });
     response.catch((error) => {
-        console.log(error.response,'error');
+       callback(error.response);
     });
-    return{
-        type: 'deletetPost',
-        payload: response
-    };
+    
+    
 }
 
-    
+

@@ -44,6 +44,8 @@ class LogIn extends React.Component {
     )
   }
   render() {
+     if(!localStorage.getItem("authToken"))
+     {
     return (
       <div>
         <h2>Login Here</h2>
@@ -54,16 +56,16 @@ class LogIn extends React.Component {
               name="username"
               component={this.renderField}
               type="text"
-              placeholder="username"
+              placeholder="Enter username"
             />
           </div>
-          <label>Password</label>
+          <label>password</label>
           <div>
             <Field
               name="password"
               component={this.renderField}
               type="password"
-              placeholder="password"
+              placeholder="Enter password"
             />
           </div>
           <div>
@@ -77,22 +79,35 @@ class LogIn extends React.Component {
       </form>
      </div>
       );
+    }
+    
+    else{
+      return (
+      <div> 
+      {alert('Invalid action performed')}
+       {history.push('/post')}
+      </div>
+      );
+     } 
    }
 }
 
 const validate = (formValue) => {
   let errors = {};
   if (!formValue.username) {
-    errors.username = "username is required"
+    errors.username = "Username is required"
   }
-   else if(formValue.username.length<4) {
-    errors.username = "username must be 4 character"
+   else if(formValue.username.length<3) {
+    errors.username = "Username must be atleast 3 character"
    }
   if (!formValue.password) {
-    errors.password = "password is required"
+    errors.password = "Password is required"
   }
   else if(formValue.password.length<4){
-    errors.password= "enter atleast 4 character"
+    errors.password= "Password must be atleast 4 character"
+  }
+  else if (!/[^a-zA-Z0-9 ]/i.test(formValue.password)) {
+    errors.password = 'Only Alfanumeric value will be accepted'
   }
  
   return errors;

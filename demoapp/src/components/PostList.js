@@ -1,91 +1,123 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {toastr} from 'react-redux-toastr';
+import { toastr } from 'react-redux-toastr';
 import { Link } from 'react-router-dom';
 import { postList } from '../actions';
-import history from '../history' ;
+import history from '../history';
+import DeletePost from './DeletePost';
+
 
 
 class PostList extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-        postdata : []
-        }
-        }
-        componentWillMount = () => {
-            console.log('willmount')
-            this.props.postList((res) => { 
-            console.log(res,'jhgdhklagkajh');    
-            this.setState({postdata : res})
-        })
-     }
+    state = { flag: false,popupState:false,postid:'' }
 
-    // componentWillMount = () => {
-    //     //console.log('sdgsfgfdgfdgdf');
-    //     this.props.postList();
-    // }
-
-    onSubmit(){
-        localStorage.removeItem("UserId");
-       localStorage.removeItem("authToken");
-       toastr.success('successfully logged out!!');
-       history.push('/login');
+    removeHTMLTag(str) {
+        return str.replace(/<[/]?\w+>/g, "");
     }
+
+    componentWillMount() {
+        this.setState({ flag: false });
+        this.props.postList((res) => {
+
+            if (res.status === 200) {
+
+                this.setState({ flag: true })
+            }
+
+        });
+    }
+
+    onSubmit() {
+        localStorage.removeItem("UserId");
+        localStorage.removeItem("authToken");
+        toastr.success('successfully logged out!!');
+        history.push('/login');
+    }
+
+    renderpopup=(id)=>{
+        this.setState({popupState:true,postid:id})
+    }
+
     renderAdmin(post) {
         localStorage.getItem("data");
-        //console.log(localStorage.getItem("userId") ,'renderadmin');
-        //if ((post.author).toString() === localStorage.getItem('userid')) 
-        if(localStorage.getItem("UserId").toString() === post.author.toString())
-         {
+
+        if (localStorage.getItem("UserId").toString() === post.author.toString()) {
             return (
                 <div className='right floated content'>
                     <Link className='ui button primary' to={`/edit/${post.id}`}>EDIT</Link>
-                    <Link className='ui button negative' to={`/delete/${post.id}`} >DELETE</Link>
+                    <button className='ui button negative' onClick={()=>this.renderpopup(post.id)} >DELETE</button>
                 </div>
             );
         }
     }
+    renderAlert() {
+        alert('you have to login first');
+        history.push('/login');
 
-    renderList=()=> {
-        if(this.state.postdata!==[]){
-            return this.state.postdata.map(post => {
+    }
+
+    renderList = () => {
+
+        if (this.state.flag) {
+            return this.props.posts.map(post => {
                 return (
                     <div className="item" key={post.id}>
-                     {this.renderAdmin(post)}    
-                      <i className="large middle aligned icon user" />
+                        {this.renderAdmin(post)}
+                        <i className="large middle aligned icon user" />
                         <div className="title">
-                        <Link to={`/post${post.id}`} className="header">
-                            {post.title.rendered}
+                            <Link to={`/post${post.id}`} className="header">
+                                {post.title.rendered}
                             </Link>
                         </div>
                         <div className="content">
-                            {post.content.rendered}
+                            {this.removeHTMLTag(post.content.rendered)}
                         </div>
                     </div>
                 );
             });
+
         }
+
+    }
+
+    cancelPopup=()=>{
+        this.setState({popupState:false});
     }
 
 
     render() {
-        if(localStorage.getItem("authToken"))
-        return (
-            <div>
-                <h2>Post List</h2>
-                <div className='ui secondary pointing menu'>
-                <Link to='/new' className="ui button primary"> Create new Post</Link>
-                    <Link to='/login' onClick={this.onSubmit}>Logout</Link>
-              </div>
-         <div className='ui celled list'>{this.renderList()}</div>
-         </div>
-       );
-   }   
+
+        if (localStorage.getItem("authToken")) {
+            return (
+                <div>
+                    {this.state.popupState && <DeletePost
+                        popupState={this.state.popupState}
+                        cancelPopup={this.cancelPopup}
+                        postid={this.state.postid}
+                    />}
+                    <h2>Post List</h2>
+                    <div className='ui secondary pointing menu'>
+                        <Link to='/new' className="ui button primary"> Create new Post</Link>
+                        <Link to='/login' onClick={this.onSubmit}>Logout</Link>
+                    </div>
+
+                    <div className='ui celled list'>{this.renderList()}</div>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    {this.renderAlert()}
+                </div>
+            );
+        }
+    }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        posts: state.postList
+    }
+}
 
-
-
-
-export default connect(null, { postList })(PostList);
+export default connect(mapStateToProps, { postList })(PostList);

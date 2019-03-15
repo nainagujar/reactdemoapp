@@ -1,54 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux' ;
-import { Link } from 'react-router-dom' ;
-import history from '../history' ;
 import { deletePost} from '../actions' ;
+import Modal from 'react-modal';
 
 
 class DeletePost extends React.Component {
-
-     
-    delete=(id)=>{
-        this.props.deletePost(id,(res)=>{
-            console.log(res)
-            if(res.status===200){
-                history.push('/post');
+    deletePost = () => {
+        this.props.deletePost(this.props.postid, (res) => {
+            if (res.status === 200) {
+                this.refs.delbtn.setAttribute("disabled", "disabled");   
+                this.props.cancelPopup();
+                setTimeout(function () { window.location.reload() }, 3000);
             }
-        });
+            else {
+                this.props.cancelPopup();
+               
+            }
+        })
     }
 
 
-    renderActions() {
-        const {id} = this.props.match.params;
-          return (
-          <React.Fragment>        
-              <button 
-                   onClick={() => this.delete(id) }
-                  className="ui button negative">
-                  Delete
-              </button>
-              <Link to="/" className="ui button">
-                  Cancel
-              </Link>
-          </React.Fragment>
-     );
-  }
-  renderContent() {       
-    return `Are  you sure you want to delete this stream ?`
+    render() {
+        console.log(this.props,'popup');
+        const { popupState, cancelPopup } = this.props
+        return (
+            <div>
+                <Modal isOpen={popupState} onClose={() => { }} center showCloseIcon={false} >
+                    <h2>Confirm to delete this post?</h2>
+                    <button className='ui button' onClick={cancelPopup}>CANCEL</button>
+                    <button ref='delbtn' className='ui negative button' onClick={this.deletePost}>DELETE</button>
+                </Modal>
+            </div>
+        );
 
+
+    }
 }
 
-render() {
-    return (
-        <div>
-               {this.renderContent()}
-                {this.renderActions()}
-                {() => history.push('/PostList')}
-        </div>
-     );
-
-};
-
-}
-
-export default connect(null , {deletePost})(DeletePost) ;
+export default connect(null,{deletePost})(DeletePost);
+    
