@@ -1,25 +1,22 @@
-import React from 'react' ;
-import { Link } from 'react-router-dom' ;
+// import React from 'react' ;
+// import { Link } from 'react-router-dom' ;
 
-const Header = () => {
-    if(localStorage.getItem.authToken){
-        return (
-            <div className= "ui secondary pointing menu">
+// class Header extends React.component {
+//      render(){
+//       return (
+//             <div className= "ui secondary pointing menu">
+//              <Link to="/" className="item">
+//              <font color={'blue'}>Home</font>
+//             </Link>
+//             <Link to="/login" className="item"> <font color={'blue'}>LogIn</font></Link>
+//             <Link to="/signup" className="item"> <font color={'blue'}>SignUp</font> </Link>
+//             <Link to="/about" className="item"> <font color={'blue'}>About Us</font> </Link>
+//              </div>  
+  
+            
+//         );
+//     }
     
-            <Link to="/" className="item">
-              logout
-              </Link>
-             </div>
-        );
-    }
-    else{
-        return (
-            <div className= "right menu">
-            <center> <h2>Demo-app</h2> </center>
-             </div>  
-        );
-    }
-};
+// }
 
-export default Header ;
-
+// export default Header ;

@@ -1,35 +1,35 @@
-import React from 'react';
-import { Route , Router } from 'react-router-dom' ;
+import React from 'react' ;
+import { Router  , Route } from 'react-router-dom' ;
+import Home from './Home' ;
+import LogIn from './LogIn';
 import SignUp from './SignUp';
-import LogIn from './LogIn' ;
-import CreatePost from './CreatePost';
-import EditPost from './EditPost';
-import PostList from './PostList';
-import UpdateProfile from './UpdateProfile';
-import ViewPost from './ViewPost';
-import Header from './Header' ;
+import AboutUs from './AboutUs';
+import SelectArea from './SelectArea' ;
 import history from '../history' ;
+import NavBar from './NavBar' ;
+import hostelList from './hostelList' ;
 
 
-
-
-const App = () => {
-      return (
-        <div>
-          <Router history={history}>
+class App extends React.Component{
+ 
+     render() {
+        return (
             <div>
-              <Header />
-              <Route path="/" exact component={SignUp} />
-             <Route path="/login" exact component={LogIn} />
-             <Route path="/update" exact component={UpdateProfile} />
-             <Route path="/post" exact component={PostList} />
-             <Route path="/new" exact component={CreatePost} />
-             <Route path="/edit/:id" exact  component={EditPost} />
-             <Route path="/view" exact component={ViewPost} />
-            </div>
-          </Router>
-        </div>
-        );
+            
+         <Router history={history}>
+       
+         <div>
+         <NavBar/>
+          <Route path='/' exact component={Home}/>
+          <Route path='/login' component={LogIn}/>
+          <Route path='/signup' component={SignUp}/>
+          <Route path='/about' component={AboutUs}/>
+          <Route path='/select' component={SelectArea}/>
+          <Route path='/list' component={hostelList}/>
+          </div>
+         </Router>
+         </div>
+       );
     }
-
-export default App;
+}
+export default App ;

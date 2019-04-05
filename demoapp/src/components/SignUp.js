@@ -1,31 +1,17 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom' ;
-import { connect } from 'react-redux' ;
-import {signUp} from '../actions' ;
-import {toastr} from 'react-redux-toastr';
+import { connect } from 'react-redux';
 import history from '../history';
-import _ from 'lodash';
+import { signUp } from '../actions'
+
 
 class SignUp extends React.Component {
  
-  onSubmit = (formValue) => {
-
-    console.log(formValue);
-    let role = {
-      role:"author"
-    }
-    formValue = _.assign(formValue,role)
-   this.props.signUp(formValue,(res)=>{
-   if(res.status === 200){
-    toastr.success('successfully signed up!!') 
-   history.push('/login'); 
- } else{
-  toastr.error('signup failed!!');
- }
- console.log(res);
- }); 
-}
+  onSubmit = (formvalue) => {
+    this.props.signUp(formvalue);
+     history.push('/select')
+     }
 
   renderField = (field) => {
     return (
@@ -40,42 +26,14 @@ class SignUp extends React.Component {
     )
   }
 
-  
-   render() {
+  render() {
     if(!localStorage.getItem("authToken"))
     {
      return (
+       <div>
+         <h4>SIGNUP</h4>
         <form onSubmit={this.props.handleSubmit(this.onSubmit.bind(this))} className="ui form">
-          <h3>SignUp!!</h3>
-          <div>
-          <label>username</label>
-             <div>
-             <Field
-               name="username"
-               component={this.renderField}
-               type="text"
-               placeholder="Enter username"
-              />
-             </div>
-          <label>email</label>
-             <div>
-             <Field
-              name="email"
-              component={this.renderField}
-              type="email"
-              placeholder="Enter email"
-              />
-             </div>
-          <label>password</label>
-              <div>
-              <Field
-              name="password"
-              component={this.renderField}
-              type="password"
-              placeholder="Enter password"
-              />
-             </div>
-             <label>firstName</label>
+             <label>FirstName</label>
             <div>
              <Field
                name="first_name"
@@ -84,7 +42,7 @@ class SignUp extends React.Component {
                placeholder="Enter firstname"
               />
             </div>
-          <label>lastName</label>
+          <label>LastName</label>
             <div>
              <Field
                name="last_name"
@@ -93,14 +51,42 @@ class SignUp extends React.Component {
                placeholder="Enter lastname"
               />
              </div>
-          <div>
-           <button className="ui primary button">SignUp</button>
-           <Link to="/login" className="item">
-            back to Login
-           </Link>
+             <label>Username</label>
+             <div>
+             <Field
+               name="username"
+               component={this.renderField}
+               type="text"
+               placeholder="Enter username"
+              />
+             </div>
+          <label>Email</label>
+             <div>
+             <Field
+              name="email"
+              component={this.renderField}
+              type="email"
+              placeholder="Enter email"
+              />
+             </div>
+           <label>Password</label>
+              <div>
+              <Field
+              name="password"
+              component={this.renderField}
+              type="password"
+              placeholder="Enter password"
+              />
+              </div>
+            <div>
+            <br/>
+            <button className="ui primary button">SIGN UP</button>
+            <Link to="/login" className="item">
+            <font color={'blue'}> Back to Login</font>
+            </Link>
           </div>
-      </div>
       </form>
+      </div>
      );
   }
   else {
@@ -123,6 +109,9 @@ const validate = (formValue) => {
    else if(formValue.username.length<4){
     errors.username= "Length should be atleast 4 character"
    }
+   else if (/^[0-9_%+-@.~`+-=*&]+/i.test(formValue.username)) {
+    errors.username = 'Enter Valid Username'
+  }
    if(!formValue.email){
     errors.email = "Email is required"
    }
@@ -145,12 +134,18 @@ const validate = (formValue) => {
   else if(formValue.first_name.length<3){
     errors.first_name= "Length should be atleast 3 character"
   }
+  else if (/^[0-9_%+-@.~`+-=*&]/i.test(formValue.first_name)) {
+    errors.first_name = 'Enter Valid firstname'
+  }
   if(!formValue.last_name){
    errors.last_name = "Lastname is required"
   }
   else if(formValue.last_name.length<3){
    errors.last_name= "Length should be atleast 3 character"
-  }    
+  } 
+  else if (/^[0-9_%+-@.~`+-=*&]/i.test(formValue.last_name)) {
+    errors.last_name = 'Enter Valid lastname'
+  }   
    return errors ;
  }
 
@@ -160,4 +155,3 @@ const validate = (formValue) => {
 })(SignUp);
 
 export default connect (null,{signUp})(signup)
-
