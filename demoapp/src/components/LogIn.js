@@ -4,20 +4,34 @@ import { reduxForm , Field } from 'redux-form' ;
 import { connect } from 'react-redux' ;
 import history from '../history';
 import {logIn} from '../actions' ;
-import {toastr} from 'react-redux-toastr';
+//import {toastr} from 'react-redux-toastr';
 //import Bk from './Bk' ;
-//import Img from 'react-image' ;
+//import Img from 'react-image' ; 
 //import BackgroundImage from "react-background-image";
 
 
 class LogIn extends React.Component{
-
   onSubmit = (formvalue) => {
-   
-  
-     this.props.logIn(formvalue);
-     toastr.success('successfully logged in!!');    
-     history.push('/select');
+     //this.setState({isloggedIn: false});
+     this.props.logIn(formvalue,(res)=>{
+       if(formvalue.username==='admin' && formvalue.password==='123@'){
+        history.push('/dashboard')
+       }
+       else{
+       if(res.status===200)
+        {
+      //   this.setState({isloggedIn : true });
+        history.push('/select')
+       
+        }
+       else {
+       alert("please signup first");
+        history.push('/signup');
+      }
+       }
+     });
+     
+    
      }
 
     renderField = (field) => {
@@ -63,7 +77,7 @@ class LogIn extends React.Component{
              <div>
             <button className ='ui primary button'>LOG IN </button>
               <Link className ='ui primary button' to="/signup" >
-              SignUp
+              SIGN UP
              </Link> 
              </div>
              {/* <Bk/> */}
@@ -75,12 +89,12 @@ class LogIn extends React.Component{
        }
        
        else{
-         return (
-         <div> 
-         {alert('Invalid action performed')}
-          {history.push('/post')}
-         </div>
-         );
+        //  return (
+        //  <div> 
+        //  {alert('Invalid action performed')}
+        //   {history.push('/post')}
+        //  </div>
+        //  );
         } 
       }
    }
@@ -93,7 +107,7 @@ class LogIn extends React.Component{
        else if(formValue.username.length<3) {
         errors.username = "Username must be atleast 3 character"
        }
-       else if (/^[0-9_)(%+-@.~`+-=*&]/i.test(formValue.username)) {
+       else if (!/^[a-zA-Z]+$/i.test(formValue.username)) {
         errors.username = 'Enter Valid Username'
       }
       if (!formValue.password) {

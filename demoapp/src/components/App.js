@@ -7,7 +7,8 @@ import AboutUs from './AboutUs';
 import SelectArea from './SelectArea' ;
 import history from '../history' ;
 import NavBar from './NavBar' ;
-import hostelList from './hostelList' ;
+import hostelDetails from './hostelDetails' ;
+import dashboard from './dashboard' ;
 
 
 class App extends React.Component{
@@ -21,11 +22,12 @@ class App extends React.Component{
          <div>
          <NavBar/>
           <Route path='/' exact component={Home}/>
-          <Route path='/login' component={LogIn}/>
           <Route path='/signup' component={SignUp}/>
+          <Route path='/login' component={LogIn}/>
           <Route path='/about' component={AboutUs}/>
           <Route path='/select' component={SelectArea}/>
-          <Route path='/list' component={hostelList}/>
+          <Route path='/Details/:id' component={hostelDetails}/>
+          <Route path='/dashboard' component={dashboard}/>
           </div>
          </Router>
          </div>

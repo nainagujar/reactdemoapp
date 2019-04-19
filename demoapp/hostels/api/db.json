@@ -1,4 +1,364 @@
 {
-    "hostels" : []
+  "users": [
+    {
+      "id": 1,
+      "first_name": "naina",
+      "last_name": "gujar",
+      "username": "nnnn",
+      "email": "naina12@gmail.com",
+      "password": "sipl1-"
+    },
+    {
+      "first_name": "nnnn",
+      "last_name": "gangde",
+      "username": "naina",
+      "email": "training@systematixindia.com",
+      "password": "1234@",
+      "id": 2
+    },
+    {
+      "first_name": "nnnn",
+      "last_name": "gangde",
+      "username": "naina",
+      "email": "training@systematixindia.com",
+      "password": "1234@",
+      "id": 3
+    },
+    {
+      "username": "asdsasd",
+      "password": "sdfsdfsdsf@",
+      "id": 4
+    },
+    {
+      "username": "asdsasd",
+      "password": "sdfsdfsdsf@",
+      "id": 5
+    },
+    {
+      "username": "asdsasd",
+      "password": "sdfsdfsdsf@",
+      "id": 6
+    },
+    {
+      "username": "asdsasd",
+      "password": "sdfsdfsdsf@",
+      "id": 7
+    },
+    {
+      "username": "asdsasd",
+      "password": "sdfsdfsdsf@",
+      "id": 8
+    },
+    {
+      "username": "naina",
+      "password": "123@agsdfgsdfg",
+      "id": 12
+    },
+    {
+      "first_name": "twinkle",
+      "last_name": "gupta",
+      "username": "twinkle",
+      "email": "twinkle@gmail.com",
+      "password": "twinkle@",
+      "id": 13
+    },
+    {
+      "first_name": "twinkle",
+      "last_name": "gupta",
+      "username": "twinkle",
+      "email": "twinkle@gmail.com",
+      "password": "twinkle@",
+      "id": 14
+    },
+    {
+      "first_name": "yyyy",
+      "last_name": "yyyy",
+      "username": "yyyy",
+      "email": "yyyy@systematixindia.com",
+      "password": "1234=",
+      "id": 15
+    },
+    {
+      "first_name": "aaaa",
+      "last_name": "aaaa",
+      "username": "aaaa",
+      "email": "t20@systematixindia.com",
+      "password": "1234)",
+      "id": 16
+    },
+    {
+      "first_name": "aaaa",
+      "last_name": "aaaa",
+      "username": "aaaa",
+      "email": "t20@systematixindia.com",
+      "password": "1234)",
+      "id": 17
+    },
+    {
+      "first_name": "aaaa",
+      "last_name": "aaaa",
+      "username": "aaaa",
+      "email": "t20@systematixindia.com",
+      "password": "1234)",
+      "id": 18
+    },
+    {
+      "first_name": "aaaa",
+      "last_name": "aaaa",
+      "username": "aaaa",
+      "email": "t20@systematixindia.com",
+      "password": "1234)",
+      "id": 19
+    },
+    {
+      "first_name": "aaaa",
+      "last_name": "aaaa",
+      "username": "aaaa",
+      "email": "t20@systematixindia.com",
+      "password": "1234)",
+      "id": 20
+    },
+    {
+      "first_name": "nnnn",
+      "last_name": "nnnn",
+      "username": "nnnn",
+      "email": "tra@systematixindia.com",
+      "password": "789=",
+      "id": 21
+    },
+    {
+      "first_name": "nnnn",
+      "last_name": "nnnn",
+      "username": "nnnn",
+      "email": "tra@systematixindia.com",
+      "password": "789=",
+      "id": 22
+    },
+    {
+      "first_name": "nnnn",
+      "last_name": "nnnn",
+      "username": "nnnn",
+      "email": "tra@systematixindia.com",
+      "password": "789=",
+      "id": 23
+    },
+    {
+      "first_name": "eerer",
+      "last_name": "erere",
+      "username": "erer",
+      "email": "visss30@gmail.com",
+      "password": "7890=",
+      "id": 24
+    },
+    {
+      "first_name": "yuyuyuy",
+      "last_name": "yuyuuuuuuui",
+      "username": "uuiiuyi",
+      "email": "uiu@gmail.com",
+      "password": "2345=",
+      "id": 25
+    },
+    {
+      "first_name": "pariiii",
+      "last_name": "pariiii",
+      "username": "pariiii",
+      "email": "pari420@gmail.com",
+      "password": "420=",
+      "id": 26
+    },
+    {
+      "first_name": "pinku",
+      "last_name": "pinku",
+      "username": "pinku",
+      "email": "pinku@gmail.com",
+      "password": "pinku@",
+      "id": 27
+    },
+    {
+      "first_name": "hansraj",
+      "last_name": "jakhar",
+      "username": "hansraj",
+      "email": "hansraj@systematixindia.com",
+      "password": "hansraj@",
+      "id": 28
+    },
+    {
+      "first_name": "ghgh",
+      "last_name": "ghgh",
+      "username": "ghgh",
+      "email": "ghg@gmail.com",
+      "password": "ghgh@",
+      "id": 29
+    }
+  ],
+  "hosteldetails" : [
+    {
+      "id" : 1,
+      "hostelId" : 1,
+      "Contact" : "Contact-5498798678",
+      "Address" : "Address-Sarvanand Nagar,Bhavarkua Square ",
+      "Facilities" : "Facilities-wifi , RO Water , Breakfast, Lunch ,Dinner,24hour Water,warden"
     
+    },
+    {
+      "id" : 2,
+      "hostelId" : 2,
+      "Contact" : "Contact-5498798678",
+      "Address" : "Address-Sarvanand Nagar,Bhavarkua Square ",
+      "Facilities" : "Facilities-wifi , RO Water , Breakfast, Lunch ,Dinner,24hour Water,warden"
+    },
+    {
+      "id" : 3,
+      "hostelId" : 3,
+      "Contact" : "Contact-5498798678",
+      "Address" : "Address-Vishnupuri colony,Bhavarkua Square ",
+      "Facilities" : "Facilities-wifi , RO Water , Breakfast, Lunch ,Dinner,24hour Water,warden"
+    },
+    {
+      "id" : 4,
+      "hostelId" : 4,
+      "Contact" : "Contact-5498798678",
+      "Address" : "Address-Vishnupuri colony,Bhavarkua Square ",
+      "Facilities" : "Facilities-wifi , RO Water , Breakfast, Lunch ,Dinner,24hour Water,warden"
+    }
+],
+  "hostels": [
+    {
+      "id": 1,
+      "name": "Devshree girls hostel",
+      "areaname": "100"
+    },
+    {
+      "id": 2,
+      "name": "VIP girls hostel",
+      "areaname": "100"
+    },
+    {
+      "id": 3,
+      "name": "Meenakshi girls hostel",
+      "areaname": "100"
+    },
+    {
+      "id": 4,
+      "name": "Geetanjali girls hostel",
+      "areaname": "100"
+    },
+    {
+      "id": 5,
+      "name": "Sindrella girls hostel",
+      "areaname": "100"
+    },
+    {
+      "id": 6,
+      "name": "56 girls hostel",
+      "areaname": "200"
+    },
+    {
+      "id": 7,
+      "name": "MP09 girls hostel",
+      "areaname": "200"
+    },
+    {
+      "id": 8,
+      "name": "Saket girls hostel",
+      "areaname": "200"
+    },
+    {
+      "id": 9,
+      "name": "Satkar girls hostel",
+      "areaname": "200"
+    },
+    {
+      "id": 10,
+      "name": "Lig1 girls hostel",
+      "areaname": "300"
+    },
+    {
+      "id": 11,
+      "name": "Aastha girls hostel",
+      "areaname": "300"
+    },
+    {
+      "id": 12,
+      "name": "Monika girls hostel",
+      "areaname": "300"
+    },
+    {
+      "id": 13,
+      "name": "satkar2 girls hostel",
+      "areaname": "300"
+    },
+    {
+      "id": 14,
+      "name": "Navlakha girls hostel",
+      "areaname": "400"
+    },
+    {
+      "id": 15,
+      "name": "Meena girls hostel",
+      "areaname": "400"
+    },
+    {
+      "id": 16,
+      "name": "St.John`s girls hostel",
+      "areaname": "400"
+    },
+    {
+      "id": 17,
+      "name": "Sheone2 girls hostel",
+      "areaname": "400"
+    },
+    {
+      "id": 18,
+      "name": "Villa girls hostel",
+      "areaname": "400"
+    },
+    {
+      "id": 19,
+      "name": "Tina girls hostel",
+      "areaname": "500"
+    },
+    {
+      "id": 20,
+      "name": "Mohana girls hostel",
+      "areaname": "500"
+    },
+    {
+      "id": 21,
+      "name": "Meera girls hostel",
+      "areaname": "500"
+    },
+    {
+      "id": 22,
+      "name": "Meera2 girls hostel",
+      "areaname": "500"
+    },
+    {
+      "id": 23,
+      "name": "Satkar3 girls hostel",
+      "areaname": "500"
+    }
+  ],
+  "area": [
+    {
+      "id": "100",
+      "name": "Bhavarkua Square"
+    },
+    {
+      "id": "200",
+      "name": "Palasia Junction"
+    },
+    {
+      "id": "300",
+      "name": "Lig Square"
+    },
+    {
+      "id": "400",
+      "name": "Navlakha Square"
+    },
+    {
+      "id": "500",
+      "name": "Geeta Bhawan"
+    }
+  ]
 }

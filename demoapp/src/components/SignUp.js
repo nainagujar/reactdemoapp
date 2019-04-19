@@ -9,10 +9,14 @@ import { signUp } from '../actions'
 class SignUp extends React.Component {
  
   onSubmit = (formvalue) => {
-    this.props.signUp(formvalue);
-     history.push('/select')
-     }
-
+    console.log(formvalue);
+    
+    this.props.signUp(formvalue,(res)=>{
+      if(res.status === 200){
+        console.log('formvalue')
+    }
+  }); 
+    }
   renderField = (field) => {
     return (
       <div>
@@ -109,7 +113,7 @@ const validate = (formValue) => {
    else if(formValue.username.length<4){
     errors.username= "Length should be atleast 4 character"
    }
-   else if (/^[0-9_%+-@.~`+-=*&]+/i.test(formValue.username)) {
+   else if (!/^[a-zA-Z]+$/i.test(formValue.username)) {
     errors.username = 'Enter Valid Username'
   }
    if(!formValue.email){
@@ -134,7 +138,7 @@ const validate = (formValue) => {
   else if(formValue.first_name.length<3){
     errors.first_name= "Length should be atleast 3 character"
   }
-  else if (/^[0-9_%+-@.~`+-=*&]/i.test(formValue.first_name)) {
+  else if (!/^[a-zA-Z]+$/i.test(formValue.first_name)) {
     errors.first_name = 'Enter Valid firstname'
   }
   if(!formValue.last_name){
@@ -143,7 +147,7 @@ const validate = (formValue) => {
   else if(formValue.last_name.length<3){
    errors.last_name= "Length should be atleast 3 character"
   } 
-  else if (/^[0-9_%+-@.~`+-=*&]/i.test(formValue.last_name)) {
+  else if(!/^[a-zA-Z]+$/i.test(formValue.last_name)) {
     errors.last_name = 'Enter Valid lastname'
   }   
    return errors ;

@@ -23,8 +23,8 @@ const NavBar = () => {
                          <Link to="/" className="right floating content menu">
                       <h3><font color={''}>Home</font></h3>
                      </Link>
+                     <Link to="/signup" className="right floating content menu"> <h3> <font color={''}>SignUp</font></h3> </Link>
                     <Link to="/login" className="right floating content menu"> <h3> <font color={''}>LogIn</font></h3></Link>
-                    <Link to="/signup" className="right floating content menu"> <h3> <font color={''}>SignUp</font></h3> </Link>
                     <Link to="/about" className="right floating content menu">  <h3><font color={''}>About Us</font></h3> </Link>
                     
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
 
-class StreamForm extends React.Component {
+class HostelForm extends React.Component {
     
     renderError({error,touched}){
         if(touched && error){
@@ -54,4 +54,4 @@ const validate =(formValues) => {
 export default reduxForm({
     form: 'streamForm',
     validate:validate
-})(StreamForm);
+})(HostelForm);

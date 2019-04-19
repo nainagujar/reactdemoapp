@@ -1,48 +1,60 @@
-import React from 'react' ;
-import { reduxForm , Field } from 'redux-form' ;
-import { connect } from 'react-redux' ;
-import Footer from './Footer' ;
+import React from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import Footer from './Footer';
 import {Link} from 'react-router-dom' ;
-//import select from './images/select.png' ;
+import { hostelsList, selectedHostelsList } from '../actions';
+//import Checkbox from 'react-simple-checkbox';
+//import history from '../history';
 
 class SelectArea extends React.Component {
-
-    onClick = (e) => {
-        console.log(e);
+    state = {
+        hostelslist: []
+    }
+    onClick = ({ select }) => {
+        this.props.selectedHostelsList(select, (res) => {
+            console.log(res)
+            this.setState({
+                hostelslist: res.data
+            })
+        });
     }
 
-    componentWillMount(){
-      console.log();
+
+    componentWillMount =()=> {
+        this.props.hostelsList();
+      
     }
 
-   renderSelect = ({ input, label, meta }) => {
+    renderSelect = ({ input, label, meta }) => {
         const className = `Field ${meta.error && meta.touched ? 'error' : ' '}`;
+        const { hostels } = this.props
         return (
             <div className={className}>
                 <label>
                     <h3>Select Area</h3>
-                    <img src={require("./images/select.png")} alt='img'/>
+                    <img src={require("./images/select.png")} alt='img' />
                     {label}
                 </label>
-                <select {...input} placeholder={label}>
-                     <option>___Select Area___</option>
-                    <option value="Bhavarkua Square">Bhavarkua Square</option>
-                    <option value="Navlakha Square">Navlakha Square</option>
-                    <option value="Rajendra Nagar">Rajendra Nagar</option>
-                    <option value="Palasia Junction">Palasia Junction</option>
-                    <option value="Lig Square">Lig Square</option>
-                    <option value="Geeta Bhavan">Geeta Bhavan</option>
+
+                <select {...input} >
+                    <option>___Select Area___</option>
+                    {hostels ? hostels.map((hostel, index) => {
+                        return <option key={index} value={hostel.id}>{hostel.name}</option>
+                    }) : <div />}
+                
                 </select>
                 <font color='red'>{meta.touched ? meta.error : ''}</font>
             </div>
         )
-        }
+    }
     render() {
-              return (
+        console.log(this.props)
+        return (
             <div>
-                <form onSubmit={this.props.handleSubmit(this.onClick.bind(this))} className="ui form">
+                <form onSubmit={this.props.handleSubmit(this.onClick.bind(this))} className="ui form" >
                     <div>
-                       
+                    <label>Select Area</label>
                         <div>
                             <Field
                                 name="select"
@@ -50,14 +62,25 @@ class SelectArea extends React.Component {
                                 placeholder="Select area"
                                 type="select"
                             />
-                            <Link to='/list'><button className='ui secondary button'>select</button></Link>
+                            <button className='ui secondary button'>select</button>
                         </div>
-                     
                         {/* <img src={require("./images/select.png")} alt='img'/> */}
                     </div>
-                    
+
                 </form>
-                <Footer/>
+                <ul>
+                    {this.state.hostelslist ? this.state.hostelslist.map(item => {
+                        return (
+                            <Link to={`/details/${item.id}`}> <li>
+                              {item.name}
+                               {/* <button type="button" className="ui info button">View details</button></ */}
+                            </li></Link>
+                        )
+                    }) : <div />}
+
+                </ul>
+                
+                <Footer />
             </div>
         );
     }
@@ -65,18 +88,25 @@ class SelectArea extends React.Component {
 
 const validate = (formValue) => {
     let errors = {};
-    if (formValue.select==='___Select Area___') {
-      errors.select = "Area is required"
+    if (formValue.select === '___Select Area___') {
+        errors.select = "Area is required"
     }
     //  else if(formValue.username.length<3) {
     //   errors.username = "Username must be atleast 3 character"
     //  }
-     return errors;
-    }
+    return errors;
+}
 
 let selectarea = reduxForm({
     form: 'SelectArea',
-    validate
-  })(SelectArea);
-  
-  export default connect (null)(selectarea)
+    validate,
+})(SelectArea);
+
+const mapStateToProps = state => {
+    return {
+
+        hostels: state.fetchHostels.data
+
+    };
+};
+export default connect(mapStateToProps, { hostelsList, selectedHostelsList })(selectarea)
